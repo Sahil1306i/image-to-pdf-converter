@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'war'
+}
+
+group = 'com.example'
+version = '1.0.0'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Apache PDFBox dependency
+    implementation 'org.apache.pdfbox:pdfbox:3.0.5'
+
+    // For web version (optional)
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // Commons FileUpload for web uploads
+    implementation 'commons-fileupload:commons-fileupload:1.5'
+    implementation 'commons-io:commons-io:2.11.0'
+
+    // JUnit for testing (optional)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+application {
+    mainClass = 'com.example.ImageToPDFConverter'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Task to run the desktop GUI application
+task runDesktop(type: JavaExec) {
+    group = 'application'
+    description = 'Run the desktop GUI application'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.example.ImageToPDFConverter'
+}
+
+// Task to create a fat JAR with all dependencies
+task fatJar(type: Jar) {
+    group = 'build'
+    description = 'Create a fat JAR with all dependencies'
+    archiveBaseName = 'image-to-pdf-converter'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'com.example.ImageToPDFConverter'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
