@@ -1,4 +1,4 @@
-package com.example;
+/*package com.example;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Desktop GUI application for converting images to PDF
- */
+
 public class ImageToPDFConverter extends JFrame {
 
     private ImageToPDFService pdfService;
@@ -216,3 +216,4 @@ public class ImageToPDFConverter extends JFrame {
         });
     }
 }
+*/

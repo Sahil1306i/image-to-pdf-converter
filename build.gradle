@@ -25,10 +25,13 @@ dependencies {
 
     // JUnit for testing (optional)
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+    implementation 'com.formdev:flatlaf:3.4'
+    implementation 'com.formdev:flatlaf-extras:3.4'
 }
 
 application {
-    mainClass = 'com.example.ImageToPDFConverter'
+    mainClass = 'com.example.com.example.ModernPDFConverter'
 }
 
 java {
